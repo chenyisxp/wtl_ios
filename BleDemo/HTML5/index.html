@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>测试蓝牙</title>
+  	<script src="js/jquery-1.8.0.min.js"></script>
+  	<link href="css/main.css" rel="stylesheet">
+    <script>
+        
+    
+    	$(function() {
+         
+          
+	        //设置默认页面
+	        //点击商品添加到购物车
+	   		 $(".goodsItem").click(function() {
+		        //var num = parseInt($("#cartNums").text());
+		        //$("#cartNums").text(num+1);
+                var itemName = $(this).children("img")[0].alt;
+                var message = {"method":"addToCarCheck","name":itemName}
+                window.webkit.messageHandlers.interOp.postMessage(message)
+		    });
+	    });
+        function handleStartScan(){
+            var message = {"method":"handleStartScan","name":""}
+            window.webkit.messageHandlers.interOp.postMessage(message)
+        }
+        function handleStopScan(){
+            var message = {"method":"handleStopScan","name":""}
+            window.webkit.messageHandlers.interOp.postMessage(message)
+        }
+	     //1、
+   		 function handleConnect(){
+             var message = {"method":"handleConnect","name":""}
+             window.webkit.messageHandlers.interOp.postMessage(message)
+   		 }
+        function handleDisConnect(){
+            var message = {"method":"handleDisConnect","name":""}
+            window.webkit.messageHandlers.interOp.postMessage(message)
+        }
+        function handleSendData(){
+            var message = {"method":"handleSendData","name":""}
+            window.webkit.messageHandlers.interOp.postMessage(message)
+        }
+        function handleReadData(){
+            var message = {"method":"handleReadData","name":""}
+            window.webkit.messageHandlers.interOp.postMessage(message)
+        }
+        //接收消息
+        function handMsgToHtml5(dataString){
+            
+            
+            //这里只是简单的给数量+1,用来演示
+                var num = parseInt($("#cartNums").text());
+                $("#cartNums").text(num+1);
+                 $("#msgString").text(dataString);
+        }
+        //接收消息
+        function sendToHtmlBleState(dataString){
+            //这里只是简单的给数量+1,用来演示
+            $("#bleState").text(dataString);
+        }
+        //接收消息
+        function scanResult(dataString){
+            //这里只是简单的给数量+1,用来演示
+            $("#scanResult").text(dataString);
+        }
+        function addToCard(){
+            
+            var message = {"method":"addToCarCheck","name":"假数据"}
+            window.webkit.messageHandlers.interOp.postMessage(message)
+        }
+        //添加到购物车
+        function addToCar(itemName){
+            //这里只是简单的给数量+1,用来演示
+            var num = parseInt($("#cartNums").text());
+            $("#cartNums").text(num+1);
+        }
+        function sendMsgToIos(fucName,keyName,valueName){
+            var message = {"method":fucName,"keyName":keyName,"valueName":valueName}
+            window.webkit.messageHandlers.interOp.postMessage(message)
+        }
+    
+    </script>
+</head>
+<body>
+    <!-- 点击事件 -->
+   
+	<!-- 页面头部，使用绝对定位 -->
+	<header id="pageHead">
+		<section>
+			<h1 style="float: left;color: #ffffff;">今日推荐</h1>
+			<div id="cart">				
+				<img  src="img/gwc4.png" /><span id="cartNums">0</span>
+			</div>
+			
+			<div class="clear"/>
+		</section>
+		<nav>
+			<ul>
+                <li class="onSelected"><a href="#" onclick="handleStartScan()">开始扫描</a></li>
+                <li class="onSelected"><a href="#" onclick="handleStopScan()">停止扫描</a></li>
+				<li class="onSelected"><a href="#" onclick="handleConnect()">连接</a></li>
+				<li><a href="#" onclick="handleDisConnect()">断开连接</a></li>
+				<li><a href="#" onclick="handleSendData()">发送数据</a></li>
+				<li><a href="#" onclick="handleReadData()">读取数据</a></li>
+                <li><a href="#" onclick="addToCard()">加入购物车</a></li>
+                <li><a href="#" onclick="sendMsgToIos('handleGetBleState')">获取连接状态</a></li>
+                <li><a href="#" onclick="sendMsgToIos('handleOpenIosScan')">打开二维码扫描</a></li>
+                 <li><a href="#" onclick="sendMsgToIos('handSaveWrite','bleName','HC-08')">存储数据</a></li>
+                  <li><a href="#" onclick="sendMsgToIos('handSaveRead','bleName')">读取存储的数据</a></li>
+                  <li><a href="#" onclick="sendMsgToIos('handOpenWeb')">打开网页</a></li>
+                <li id="msgString">我勒个去</li>
+                <li id="bleState">连接状态</li>
+                <li id="scanResult">扫描结果</li>
+                
+				<div class="clear"/>
+			</ul>
+		</nav>
+	</header>
+    <ul>
+       
+    </ul>
+</body>
+</html>
