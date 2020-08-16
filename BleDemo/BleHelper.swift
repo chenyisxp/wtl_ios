@@ -12,7 +12,7 @@ import CoreBluetooth
 
 enum BleState: Int {
     case ready
-    case scanning
+    case scaning
     case connecting
     case connected
 }
@@ -89,7 +89,7 @@ class BleHelper: NSObject {
         print("开始扫描")
         aPeArray = []
         
-        bleState = .scanning
+        bleState = .scaning
         centralManager?.scanForPeripherals(withServices: serviceUUIDS, options: options)
     }
     

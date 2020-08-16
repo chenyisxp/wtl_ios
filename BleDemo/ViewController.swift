@@ -22,6 +22,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     let cellID = "cellIdentifier"
     var bleHelper = BleHelper.shared
     var pArray:[CBPeripheral] = []
+    var pArrayString:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         // **************** 扫苗
@@ -36,34 +37,39 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        style.animationImage = UIImage(named: "qrcode_scan_part_net")//引用bundle中的图片
         //****************
         // Do any additional setup after loading the view.
-        edgesForExtendedLayout = .top
-//        setUI()
+//        edgesForExtendedLayout = .top//顶部y空白
+//        testWebview();
+        //获取数据库实例
+
         setData()
         //引入html5
-        
+        //-----begin------
         let path = Bundle.main.path(forResource: "index", ofType: ".html",
                                     inDirectory: "HTML5")
         let url = URL(fileURLWithPath:path!)
         let request = URLRequest(url:url)
-        
+
         //创建供js调用的接口
         let theConfiguration = WKWebViewConfiguration()
         theConfiguration.userContentController.add(self, name: "interOp")
-        
+
         //将浏览器视图全屏(在内容区域全屏,不占用顶端时间条)
         let frame = CGRect(x:0, y:20, width:UIScreen.main.bounds.width,
                            height:UIScreen.main.bounds.height)
+//        theWebView = WKWebView(frame:frame, configuration: theConfiguration)
+        
         theWebView = WKWebView(frame:frame, configuration: theConfiguration)
         //禁用页面在最顶端时下拉拖动效果
         theWebView!.scrollView.bounces = false
         //加载页面
         theWebView!.load(request)
         self.view.addSubview(theWebView!)
+        //-----end------
     }
     //响应处理js那边的调用
     func userContentController(_ userContentController:WKUserContentController,
                                didReceive message: WKScriptMessage) {
-        print(message.body)
+//        print(message.body)
         let sentData = message.body as! Dictionary<String,String>
         //判断是确认添加购物车操作
         if(sentData["method"] == "addToCarCheck"){
@@ -92,10 +98,25 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             bleHelper.stopScan();
             
         }else if(sentData["method"] == "handleConnect"){
-             print("我想要连接")
-             print(self.pArray)
-            //连接
-            bleHelper.doConnect(peripheral: self.pArray[0])
+             let itemName = sentData["keyName"]!
+            // 663E99B6-39F0-CD53-CF0C-BEB6CA13B875
+            print("我想要连接"+itemName )
+            print(self.pArray)
+            
+            for s in self.pArray{
+                if s.identifier.description == itemName {
+                     print("结束===判断是否相等======")
+//                     bleHelper.doConnect(peripheral: self.pArray[0])
+                     bleHelper.doConnect(peripheral: s)
+                }
+                print(s.identifier.description)
+                print(s.name ?? "")
+                print("结束=========")
+            }
+            
+            //连接 加入没有扫描的话需要自己创建对象
+            
+            
         }else if(sentData["method"] == "handleDisConnect"){
             print("我想要端开连接")
             bleHelper.disconnect(peripheral: self.pArray[0])
@@ -115,7 +136,17 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             print("我想要读取数据")
         }else if(sentData["method"] == "handleGetBleState"){
             print("我想要读取连接状态")
+            print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToHtmlBleState('\(bleHelper.bleState)')",
+                completionHandler: nil)
+        }else if(sentData["method"] == "handleGetBleStateByLayout"){
+            print("我想要读取连接状态Layout")
+            print(bleHelper.bleState)
+            self.theWebView!.evaluateJavaScript("sendToLayloutBleState('\(bleHelper.bleState)')",
+                completionHandler: nil)
+        }else if(sentData["method"] == "handleGetBleStateByIndex"){
+//            print("我想要读取连接状态Index")
+            self.theWebView!.evaluateJavaScript("sendToIndexBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleOpenIosScan"){
             print("我想要开启二维码识别")
@@ -146,7 +177,8 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             let name: String? = manager.string(forKey: keyName)  //根据关键字取值
             //如果name不是nil则显示name参数的值，为nil时显示??后面的empty name
             print(name ?? "empty name")    //注意name是optional， 可能为nil; 注意??的用法
-            
+            self.theWebView!.evaluateJavaScript("sendToHtmlLastConnectBle('\(name ?? "")')",
+            completionHandler: nil)
 //            let array = manager.array(forKey: Keys.Array.rawValue)
 //            if let noemptyarray = array {    //如果array不空则进入
 //                for data in noemptyarray {   //遍历数组
@@ -156,23 +188,36 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //
 //            let savedAge = manager.integer(forKey: Keys.IntAge.rawValue)
 //            print(savedAge)  //打印整型
+        }else if(sentData["method"] == "handSaveReadByFuction"){
+                        print("handSaveReadByFuction2")
+                    let keyName = sentData["keyName"]!
+                    let manager = UserDefaults()
+                    let name: String? = manager.string(forKey: keyName)  //根据关键字取值
+//                    print(name ??  "77")
+                    //如果name不是nil则显示name参数的值，为nil时显示??后面的empty name
+                    //动态拼接方法 根据方法名去完成
+            print("\(keyName )('\(name ?? "")')" )
+            self.theWebView!.evaluateJavaScript("\(keyName )('\(name ?? "")')",
+                    completionHandler: nil)
+      
         }else if(sentData["method"] == "handOpenWeb"){
             print("我想要打开网页")
-//            let keyName = sentData["keyName"]!
-            self.openWeb();
+            let keyName = sentData["keyName"]!
+            self.openWeb(url: keyName);
             
         }
         
         
         
     }
-    func openWeb(){
+    func openWeb(url :String){
 //        let webView = UIWebView();
 //        let url = NSURL(string: "http://www.imoneyfans.com")
 //        webView.loadRequest(NSURLRequest(url: url! as URL) as URLRequest)
 //        self.view.addSubview(webView)
         //内置浏览器打开网页
-        let urlString = "http://www.wtl.com.cn/"
+//        let urlString = "http://www.wtl.com.cn/"
+        let urlString = url;
         if let url = URL(string: urlString) {
             //根据iOS系统版本，分别处理
             if #available(iOS 10, *) {
@@ -228,28 +273,44 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        tableView.frame = CGRect(x: 0, y: 22, width: width, height: height - 22)
 //        view.addSubview(tableView)
 //    }
-    
+    func testWebview() {
+        //创建
+        let webView = UIWebView.init(frame:self.view.frame)
+        //添加
+        self.view.addSubview(webView)
+        webView.loadRequest(NSURLRequest(url:NSURL.init(string:"http://0.0.0.0:8081")! as URL) as URLRequest)
+    }
     func setData() {
         bleHelper.setPeripheralsBlock { (peArray) in
             self.pArray = peArray
             print("处理扫描出来的蓝牙\(peArray)")
+            var dataJson:String  = "";
             //我这里是传递到html5 页面
 //            for i in 0..<peArray.count {
 //                let item = peArray[i];
-//                dataJson+=item.name ?? "none"+item.state ?? "noneState";
-//                print("\(String(describing: item.name))")
+//                 dataJson+="\(item.element.name ?? "none"),\(item.element.state.rawValue),\(item.element.identifier)|||";
 //            }
-            var dataJson:String  = "";
-            for  item in peArray.enumerated(){
-                dataJson+="\(item.element.name ?? "none"),\(item.element.state.rawValue),\(item.element.identifier)|||";
-
-            }
+            //1.可用
+//            for  item in peArray.enumerated(){
+//                dataJson+="\(item.element.name ?? "none"),\(item.element.state.rawValue),\(item.element.identifier)|||";
+//            }
 //            print("遍历数组1\(dataJson)")//没关系，打印出来会带属性Optional
-           
+              //2.增加索引
+              for  (index,item) in peArray.enumerated(){
+                print(peArray.count)
+                print(index)
+                if(peArray.count == (index+1)){
+                    dataJson+="\(item.name ?? "none"),\(item.identifier)";
+                   }else{
+                       dataJson+="\(item.name ?? "none"),\(item.identifier)|||";
+                    }
+               }
             print("遍历数组2\(dataJson)")//没关系，打印出来会带属性Optional
-            self.theWebView!.evaluateJavaScript("handMsgToHtml5('\(dataJson)')",
+            self.theWebView!.evaluateJavaScript("handBleListToHtml5('\(dataJson)')",
                 completionHandler: nil)
+            
             //self.tableView.reloadData()
+            self.pArrayString = dataJson;
         }
         
         bleHelper.setConnectedBlock { (backPe, backCh) in
