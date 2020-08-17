@@ -121,14 +121,15 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             print("我想要端开连接")
             bleHelper.disconnect(peripheral: self.pArray[0])
         }else if(sentData["method"] == "handleSendData"){
+            let sendDt = sentData["sendDt"]!
             print("我想要发送数据")
-            if(bleHelper.bleState == BleState.connecting){
-                let str:String = "DADEDADEDADEDADEDADEDADEDADEDADEDADEDADEDADE"
+            if(bleHelper.bleState == BleState.connected){
+                let str:String = sendDt
                 //字符串转Data
                 let data = str.data(using: String.Encoding.utf8)
                 bleHelper.writeToPeripheral(data!)
             }else{
-                print("我想要发送数据！！清先连接蓝牙")
+                print("我想要发送数据！！请先连接蓝牙")
                 return;
             }
           
@@ -140,8 +141,8 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             self.theWebView!.evaluateJavaScript("sendToHtmlBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleGetBleStateByLayout"){
-            print("我想要读取连接状态Layout")
-            print(bleHelper.bleState)
+//            print("我想要读取连接状态Layout")
+//            print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToLayloutBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleGetBleStateByIndex"){
