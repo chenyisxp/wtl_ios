@@ -135,6 +135,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
           
         }else if(sentData["method"] == "handleReadData"){
             print("我想要读取数据")
+            
         }else if(sentData["method"] == "handleGetBleState"){
             print("我想要读取连接状态")
             print(bleHelper.bleState)
@@ -319,6 +320,12 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
         }
         
         bleHelper.setDataBlock { (data) in
+            //需要传出数据
+//            self.theWebView!.evaluateJavaScript("handBleListToHtml5('\(data)')",
+//                           completionHandler: nil)
+//            ble data:8 bytes
+//            ble data:[218, 218, 218, 218, 218, 218, 218, 218]
+            print("ble data:\(data)")
             print("ble data:\([UInt8](data))")
         }
     }
