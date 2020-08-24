@@ -32,7 +32,6 @@
 		E5C26ADC24420AEA0096F55C /* LBXScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C26AD524420AE90096F55C /* LBXScanViewController.swift */; };
 		E5C26ADD24420AEA0096F55C /* LBXScanNetAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C26AD624420AE90096F55C /* LBXScanNetAnimation.swift */; };
 		E5E1948224E8309D001B9DC7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E1948124E8309D001B9DC7 /* libsqlite3.0.tbd */; };
-		E5E1948624E8358B001B9DC7 /* BleDemo-master in Resources */ = {isa = PBXBuildFile; fileRef = E5E1948524E8358A001B9DC7 /* BleDemo-master */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +53,7 @@
 
 /* Begin PBXFileReference section */
 		48508F602429991A0049A123 /* BleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleHelper.swift; sourceTree = "<group>"; };
-		48575C2E2428899C00153155 /* BleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		48575C2E2428899C00153155 /* WTL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48575C312428899C00153155 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48575C332428899C00153155 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		48575C362428899C00153155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,7 +84,6 @@
 		E5C26AD624420AE90096F55C /* LBXScanNetAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanNetAnimation.swift; sourceTree = "<group>"; };
 		E5E1948124E8309D001B9DC7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
 		E5E1948324E83242001B9DC7 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		E5E1948524E8358A001B9DC7 /* BleDemo-master */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "BleDemo-master"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +115,6 @@
 		48575C252428899C00153155 = {
 			isa = PBXGroup;
 			children = (
-				E5E1948524E8358A001B9DC7 /* BleDemo-master */,
 				E5E1948324E83242001B9DC7 /* Bridging-Header.h */,
 				48575C302428899C00153155 /* BleDemo */,
 				48575C452428899D00153155 /* BleDemoTests */,
@@ -130,7 +127,7 @@
 		48575C2F2428899C00153155 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				48575C2E2428899C00153155 /* BleDemo.app */,
+				48575C2E2428899C00153155 /* WTL.app */,
 				48575C422428899D00153155 /* BleDemoTests.xctest */,
 				48575C4D2428899D00153155 /* BleDemoUITests.xctest */,
 			);
@@ -210,7 +207,7 @@
 			);
 			name = BleDemo;
 			productName = BleDemo;
-			productReference = 48575C2E2428899C00153155 /* BleDemo.app */;
+			productReference = 48575C2E2428899C00153155 /* WTL.app */;
 			productType = "com.apple.product-type.application";
 		};
 		48575C412428899D00153155 /* BleDemoTests */ = {
@@ -304,7 +301,6 @@
 				E54FBEE82442DDB4008C7316 /* qrcode_scan_btn_photo_down@2x.png in Resources */,
 				48575C3C2428899D00153155 /* LaunchScreen.storyboard in Resources */,
 				E54FBEE72442DDB4008C7316 /* qrcode_scan_btn_myqrcode_down@2x.png in Resources */,
-				E5E1948624E8358B001B9DC7 /* BleDemo-master in Resources */,
 				48575C392428899D00153155 /* Assets.xcassets in Resources */,
 				48575C372428899C00153155 /* Main.storyboard in Resources */,
 				E54FBEE52442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png in Resources */,
@@ -527,7 +523,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wtl-1";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WTL;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -546,7 +542,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wtl-1";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WTL;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -15,9 +15,13 @@ enum Keys: String {
     case StrName = "name"
     case IntAge = "age"
 }
+
 class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerControllerDelegate, UINavigationControllerDelegate ,LBXScanViewControllerDelegate{
-   
-    
+    // 禁止自动旋转
+    override var shouldAutorotate : Bool {
+        return false
+    }
+    var pageFromH5:String?
     var theWebView:WKWebView?
     let cellID = "cellIdentifier"
     var bleHelper = BleHelper.shared
@@ -40,7 +44,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        edgesForExtendedLayout = .top//顶部y空白
 //        testWebview();
         //获取数据库实例
-
+        
         setData()
         //引入html5
         //-----begin------
@@ -48,17 +52,22 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                                     inDirectory: "HTML5")
         let url = URL(fileURLWithPath:path!)
         let request = URLRequest(url:url)
-
+        self.navigationController?.navigationBar.isHidden = true;//隐藏导航栏要不然底部会有空白区域
+//        self.navigationController?.navigationBar.barStyle = UIBarStyle.black;//状态栏颜色
+        // 设置导航栏 背景 为 红色
+//        let barColor = UIColor(red:94/255.0, green:94/255.0, blue:94/255.0, alpha:1)
+//        self.navigationController?.navigationBar.barTintColor =  barColor;
+       
         //创建供js调用的接口
         let theConfiguration = WKWebViewConfiguration()
         theConfiguration.userContentController.add(self, name: "interOp")
-
         //将浏览器视图全屏(在内容区域全屏,不占用顶端时间条)
-        let frame = CGRect(x:0, y:20, width:UIScreen.main.bounds.width,
+        let frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.width,
                            height:UIScreen.main.bounds.height)
 //        theWebView = WKWebView(frame:frame, configuration: theConfiguration)
         
         theWebView = WKWebView(frame:frame, configuration: theConfiguration)
+        
         //禁用页面在最顶端时下拉拖动效果
         theWebView!.scrollView.bounces = false
         //加载页面
@@ -126,8 +135,13 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             if(bleHelper.bleState == BleState.connected){
                 let str:String = sendDt
                 //字符串转Data
-                let data = str.data(using: String.Encoding.utf8)
-                bleHelper.writeToPeripheral(data!)
+//                let data = str.data(using: String.Encoding.utf8)
+
+                
+//                let data = "dae1100000";
+                let data1:Data =  Data(hex: str)
+                bleHelper.writeToPeripheral(data1);
+                print(data1)
             }else{
                 print("我想要发送数据！！请先连接蓝牙")
                 return;
@@ -207,6 +221,17 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             let keyName = sentData["keyName"]!
             self.openWeb(url: keyName);
             
+        }else if(sentData["method"] == "handleMultiParams"){
+            let keyName = "handleMultiParamsResponse"
+             let params1 = sentData["params1"]!
+            
+            pageFromH5 = sentData["params2"]!
+            print( pageFromH5 ?? "")//可以解决optional("pageFrom")
+            
+//            self.theWebView!.evaluateJavaScript("\(keyName){'\(pageFromH5))'}");,
+//            completionHandler: nil)
+            self.theWebView!.evaluateJavaScript("\(keyName )('\((params1,pageFromH5 ?? ""))')",
+                               completionHandler: nil)
         }
         
         
@@ -323,10 +348,18 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             //需要传出数据
 //            self.theWebView!.evaluateJavaScript("handBleListToHtml5('\(data)')",
 //                           completionHandler: nil)
+//            DA1000000570 对应16进制：44 41 31 30 30 30 30 30 30 30 35 37 30
 //            ble data:8 bytes
-//            ble data:[218, 218, 218, 218, 218, 218, 218, 218]
+              
+//            ble data:[68, 65, 49, 48, 48, 48, 48, 48, 48, 53, 55, 48]//已经被转成 十进制
             print("ble data:\(data)")
             print("ble data:\([UInt8](data))")
+            //传输出去的是十进制数组如[218 225] dae1
+//            ble data十进制:[218, 225, 0, 0, 0, 0, 2, 0, 60, 0, 61, 0, 180, 0, 200, 0, 2, 9, 46, 119]
+//            [da e1 00 00 00 00 02 00 3c 00 3d 00 b4 00 c8 00 02 09 2e 77]//后面双字节的自己拼
+            
+            self.theWebView!.evaluateJavaScript("iosBleDataLayoutFuc('\([UInt8](data))')",
+                                       completionHandler: nil)
         }
     }
     func handleStartScan(){
@@ -360,5 +393,77 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         bleHelper.doConnect(peripheral: pArray[indexPath.row])
+    }
+}
+extension Data {
+    public init(hex: String) {
+        self.init(bytes: Array<UInt8>(hex: hex))
+    }
+    public var bytes: Array<UInt8> {
+        return Array(self)
+    }
+    public func toHexString() -> String {
+        return bytes.toHexString()
+    }
+}
+
+extension Array {
+    public init(reserveCapacity: Int) {
+        self = Array<Element>()
+        self.reserveCapacity(reserveCapacity)
+    }
+    
+    var slice: ArraySlice<Element> {
+        return self[self.startIndex ..< self.endIndex]
+    }
+}
+
+extension Array where Element == UInt8 {
+    public init(hex: String) {
+        self.init(reserveCapacity: hex.unicodeScalars.lazy.underestimatedCount)
+        var buffer: UInt8?
+        var skip = hex.hasPrefix("0x") ? 2 : 0
+        for char in hex.unicodeScalars.lazy {
+            guard skip == 0 else {
+                skip -= 1
+                continue
+            }
+            guard char.value >= 48 && char.value <= 102 else {
+                removeAll()
+                return
+            }
+            let v: UInt8
+            let c: UInt8 = UInt8(char.value)
+            switch c {
+            case let c where c <= 57:
+                v = c - 48
+            case let c where c >= 65 && c <= 70:
+                v = c - 55
+            case let c where c >= 97:
+                v = c - 87
+            default:
+                removeAll()
+                return
+            }
+            if let b = buffer {
+                append(b << 4 | v)
+                buffer = nil
+            } else {
+                buffer = v
+            }
+        }
+        if let b = buffer {
+            append(b)
+        }
+    }
+    
+    public func toHexString() -> String {
+        return `lazy`.reduce("") {
+            var s = String($1, radix: 16)
+            if s.count == 1 {
+                s = "0" + s
+            }
+            return $0 + s
+        }
     }
 }

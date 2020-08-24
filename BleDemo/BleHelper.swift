@@ -116,7 +116,7 @@ class BleHelper: NSObject {
     func writeToPeripheral(_ data: Data) {
         print("writeToPeripheral\(data)")
 //        print(writeCh)
-         nowperipheral.writeValue(data , for: writeCh!, type: CBCharacteristicWriteType.withoutResponse)
+        nowperipheral.writeValue(data , for: writeCh!, type: CBCharacteristicWriteType.withoutResponse)
     }
     
     ///传出蓝牙传输数据
