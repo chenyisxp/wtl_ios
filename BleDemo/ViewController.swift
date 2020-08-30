@@ -28,7 +28,10 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     var pArray:[CBPeripheral] = []
     var pArrayString:String = ""
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
+//        let vc = LauchViewController()
+        //这种方式才可以扫描页继续往下走 会x影响webpage里的js执行
+//        self.navigationController?.pushViewController(vc, animated: true)
         // **************** 扫苗
         //自定义视图导航标题
 //        self.title = "二维码/条码"
@@ -44,36 +47,62 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        edgesForExtendedLayout = .top//顶部y空白
 //        testWebview();
         //获取数据库实例
-        
-        setData()
-        //引入html5
-        //-----begin------
-        let path = Bundle.main.path(forResource: "index", ofType: ".html",
-                                    inDirectory: "HTML5")
-        let url = URL(fileURLWithPath:path!)
-        let request = URLRequest(url:url)
-        self.navigationController?.navigationBar.isHidden = true;//隐藏导航栏要不然底部会有空白区域
-//        self.navigationController?.navigationBar.barStyle = UIBarStyle.black;//状态栏颜色
-        // 设置导航栏 背景 为 红色
-//        let barColor = UIColor(red:94/255.0, green:94/255.0, blue:94/255.0, alpha:1)
-//        self.navigationController?.navigationBar.barTintColor =  barColor;
+        initWbPage()
        
-        //创建供js调用的接口
-        let theConfiguration = WKWebViewConfiguration()
-        theConfiguration.userContentController.add(self, name: "interOp")
-        //将浏览器视图全屏(在内容区域全屏,不占用顶端时间条)
-        let frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.width,
-                           height:UIScreen.main.bounds.height)
-//        theWebView = WKWebView(frame:frame, configuration: theConfiguration)
-        
-        theWebView = WKWebView(frame:frame, configuration: theConfiguration)
-        
-        //禁用页面在最顶端时下拉拖动效果
-        theWebView!.scrollView.bounces = false
-        //加载页面
-        theWebView!.load(request)
-        self.view.addSubview(theWebView!)
-        //-----end------
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
+        super.viewWillAppear(animated)
+        // Hide the navigation bar for current view controller
+        self.navigationController?.navigationBar.isHidden = true;//隐藏导航
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
+        super.viewWillDisappear(animated)
+        // Show the navigation bar on other view controllers
+       self.navigationController?.navigationBar.isHidden = true;//隐藏导航
+    }
+    func initWbPage(){
+                setData()
+                //引入html5
+                //-----begin------
+                let path = Bundle.main.path(forResource: "index", ofType: ".html",
+                                            inDirectory: "HTML5")
+                let url = URL(fileURLWithPath:path!)
+                let request = URLRequest(url:url)
+                self.navigationController?.navigationBar.isHidden = true;//隐藏导航栏要不然底部会有空白区域
+        //        self.navigationController?.navigationBar.barStyle = UIBarStyle.black;//状态栏颜色
+                // 设置导航栏 背景 为 红色
+        //        let barColor = UIColor(red:94/255.0, green:94/255.0, blue:94/255.0, alpha:1)
+        //        self.navigationController?.navigationBar.barTintColor =  barColor;
+               
+                //创建供js调用的接口
+                let theConfiguration = WKWebViewConfiguration()
+        //html5里自动播放视屏相关 现在不要了
+//                theConfiguration.allowsInlineMediaPlayback = true;
+//                theConfiguration.allowsAirPlayForMediaPlayback = true;
+//                theConfiguration.mediaPlaybackRequiresUserAction = false;
+                theConfiguration.userContentController.add(self, name: "interOp")
+               
+          //viedeo
+        //                config.mediaPlaybackRequiresUserAction = NO;//把手动播放设置NO ios(8.0, 9.0)
+        //                config.allowsInlineMediaPlayback = YES;//是否允许内联(YES)或使用本机全屏控制器(NO)，默认是NO。
+        //                config.mediaPlaybackAllowsAirPlay = YES;//允许播放，ios(8.0, 9.0)
+                //将浏览器视图全屏(在内容区域全屏,不占用顶端时间条)
+                let frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.width,
+                                   height:UIScreen.main.bounds.height)
+        //        theWebView = WKWebView(frame:frame, configuration: theConfiguration)
+                
+                theWebView = WKWebView(frame:frame, configuration: theConfiguration)
+                //禁用页面在最顶端时下拉拖动效果
+                theWebView!.scrollView.bounces = false
+              
+                
+                //加载页面
+                theWebView!.load(request)
+                self.view.addSubview(theWebView!)
+                //-----end------
     }
     //响应处理js那边的调用
     func userContentController(_ userContentController:WKUserContentController,
@@ -131,7 +160,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             bleHelper.disconnect(peripheral: self.pArray[0])
         }else if(sentData["method"] == "handleSendData"){
             let sendDt = sentData["sendDt"]!
-            print("我想要发送数据")
+            print("我想要发送数据:\(sendDt)")
             if(bleHelper.bleState == BleState.connected){
                 let str:String = sendDt
                 //字符串转Data
@@ -212,7 +241,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //                    print(name ??  "77")
                     //如果name不是nil则显示name参数的值，为nil时显示??后面的empty name
                     //动态拼接方法 根据方法名去完成
-            print("\(keyName )('\(name ?? "")')" )
+            print("有值吗\(keyName )('\(name ?? "")')" )
             self.theWebView!.evaluateJavaScript("\(keyName )('\(name ?? "")')",
                     completionHandler: nil)
       
@@ -281,14 +310,15 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
         vc.scanResultDelegate = self
         //            print(self.navigationController)
         self.navigationController?.pushViewController(vc, animated: true)
+//         self.present(vc, animated: true, completion: nil)
         
     }
     //获取扫描结果
     func scanFinished(scanResult: LBXScanResult, error: String?) {
-        print("扫描结果\(scanResult.strScanned!)")
+        print("扫描结果11\(scanResult.strScanned!)")
         //调用页面里发送到html5
-        self.theWebView!.evaluateJavaScript("scanResult(\(scanResult.strScanned ?? ""))",
-            completionHandler: nil)
+        self.theWebView!.evaluateJavaScript("broastCameraScanRst('\(scanResult.strScanned ?? "")')",
+        completionHandler: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

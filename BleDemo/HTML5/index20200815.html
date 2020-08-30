@@ -62,9 +62,9 @@
             $("#bleState").text(dataString);
         }
         //接收消息
-        function scanResult(dataString){
+        function broastCameraScanRst(dataString){
             //这里只是简单的给数量+1,用来演示
-            $("#scanResult").text(dataString);
+            $("#broastCameraScanRst").text(dataString);
         }
         function addToCard(){
             
@@ -99,7 +99,7 @@
 </head>
 <body>
     <!-- 点击事件 -->
-   
+    <input />
     <!-- 页面头部，使用绝对定位 -->
     <header id="pageHead">
         <section>
@@ -129,7 +129,7 @@
                   <li><a href="#" onclick="sendMsgToIos('handOpenWeb','http://www.wtl.com.cn/')">打开网页</a></li>
                 <li id="msgString">我勒个去</li>
                 <li id="bleState">连接状态</li>
-                <li id="scanResult">扫描结果</li>
+                <li id="broastCameraScanRst">扫描结果</li>
                 <li id="nametext">zhi</li>
                 <li id="nametext22">多参数</li>
                 <div class="clear"/>

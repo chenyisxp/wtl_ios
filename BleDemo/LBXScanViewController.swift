@@ -67,16 +67,23 @@ open class LBXScanViewController: UIViewController {
         super.viewDidLoad()
         print("到LBXScanViewController的viewDidLoad")
         // Do any additional setup after loading the view.
-
+        //begin back键的添加
+//        self.navigationItem.hidesBackButton = true
+        self.navigationController?.navigationBar.isHidden = false;//隐藏导航
+        //end
         // [self.view addSubview:_qRScanView];
         view.backgroundColor = UIColor.black
         edgesForExtendedLayout = UIRectEdge(rawValue: 0)
     }
-
+    override open func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
+        super.viewWillAppear(animated)
+        // Hide the navigation bar for current view controller
+        self.navigationController?.navigationBar.isHidden = false;//隐藏导航
+    }
     open func setNeedCodeImage(needCodeImg: Bool) {
         isNeedCodeImage = needCodeImg
     }
-
     // 设置框内识别
     open func setOpenInterestRect(isOpen: Bool) {
         isOpenInterestRect = isOpen
@@ -221,6 +228,9 @@ open class LBXScanViewController: UIViewController {
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+              // Show the navigation bar on other view controllers
+         self.navigationController?.navigationBar.isHidden = false;//隐藏导航
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         qRScanView?.stopScanAnimation()
         scanObj?.stop()

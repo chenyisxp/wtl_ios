@@ -15,6 +15,11 @@
 		48575C3C2428899D00153155 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48575C3A2428899D00153155 /* LaunchScreen.storyboard */; };
 		48575C472428899D00153155 /* BleDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48575C462428899D00153155 /* BleDemoTests.swift */; };
 		48575C522428899D00153155 /* BleDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48575C512428899D00153155 /* BleDemoUITests.swift */; };
+		E514842424F93F800092CEE8 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E514842324F93F800092CEE8 /* LaunchView.swift */; };
+		E514842624F94E650092CEE8 /* appLauch in Resources */ = {isa = PBXBuildFile; fileRef = E514842524F94E650092CEE8 /* appLauch */; };
+		E514842D24FA111E0092CEE8 /* Resource in Resources */ = {isa = PBXBuildFile; fileRef = E514842C24FA111D0092CEE8 /* Resource */; };
+		E514843124FA45200092CEE8 /* appvideo1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E514843024FA45200092CEE8 /* appvideo1.mp4 */; };
+		E514843324FA50A20092CEE8 /* 截屏2020-08-2916.59.50.png in Resources */ = {isa = PBXBuildFile; fileRef = E514843224FA50A20092CEE8 /* 截屏2020-08-2916.59.50.png */; };
 		E54FBEE42442DDB4008C7316 /* qrcode_scan_btn_myqrcode_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54FBEDE2442DDB3008C7316 /* qrcode_scan_btn_myqrcode_nor@2x.png */; };
 		E54FBEE52442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54FBEDF2442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png */; };
 		E54FBEE62442DDB4008C7316 /* qrcode_scan_btn_photo_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54FBEE02442DDB4008C7316 /* qrcode_scan_btn_photo_nor@2x.png */; };
@@ -66,6 +71,11 @@
 		48575C4D2428899D00153155 /* BleDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BleDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		48575C512428899D00153155 /* BleDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleDemoUITests.swift; sourceTree = "<group>"; };
 		48575C532428899D00153155 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E514842324F93F800092CEE8 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		E514842524F94E650092CEE8 /* appLauch */ = {isa = PBXFileReference; lastKnownFileType = folder; path = appLauch; sourceTree = "<group>"; };
+		E514842C24FA111D0092CEE8 /* Resource */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resource; path = BleDemo/Resource; sourceTree = "<group>"; };
+		E514843024FA45200092CEE8 /* appvideo1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = appvideo1.mp4; path = BleDemo/Resource/appvideo1.mp4; sourceTree = "<group>"; };
+		E514843224FA50A20092CEE8 /* 截屏2020-08-2916.59.50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "截屏2020-08-2916.59.50.png"; sourceTree = "<group>"; };
 		E54FBEDE2442DDB3008C7316 /* qrcode_scan_btn_myqrcode_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrcode_scan_btn_myqrcode_nor@2x.png"; sourceTree = "<group>"; };
 		E54FBEDF2442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrcode_scan_btn_flash_down@2x.png"; sourceTree = "<group>"; };
 		E54FBEE02442DDB4008C7316 /* qrcode_scan_btn_photo_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qrcode_scan_btn_photo_nor@2x.png"; sourceTree = "<group>"; };
@@ -115,6 +125,9 @@
 		48575C252428899C00153155 = {
 			isa = PBXGroup;
 			children = (
+				E514843224FA50A20092CEE8 /* 截屏2020-08-2916.59.50.png */,
+				E514843024FA45200092CEE8 /* appvideo1.mp4 */,
+				E514842C24FA111D0092CEE8 /* Resource */,
 				E5E1948324E83242001B9DC7 /* Bridging-Header.h */,
 				48575C302428899C00153155 /* BleDemo */,
 				48575C452428899D00153155 /* BleDemoTests */,
@@ -137,6 +150,7 @@
 		48575C302428899C00153155 /* BleDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E514842524F94E650092CEE8 /* appLauch */,
 				E54FBEDF2442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png */,
 				E54FBEE32442DDB4008C7316 /* qrcode_scan_btn_flash_nor@2x.png */,
 				E54FBEE12442DDB4008C7316 /* qrcode_scan_btn_myqrcode_down@2x.png */,
@@ -160,6 +174,7 @@
 				48575C3A2428899D00153155 /* LaunchScreen.storyboard */,
 				48575C3D2428899D00153155 /* Info.plist */,
 				E54FBEEA2442F0CA008C7316 /* SaveInfo.swift */,
+				E514842324F93F800092CEE8 /* LaunchView.swift */,
 			);
 			path = BleDemo;
 			sourceTree = "<group>";
@@ -294,16 +309,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E514843124FA45200092CEE8 /* appvideo1.mp4 in Resources */,
 				E54FBEE42442DDB4008C7316 /* qrcode_scan_btn_myqrcode_nor@2x.png in Resources */,
 				E5C26ACF244207DF0096F55C /* qrcode_scan_full_net.png in Resources */,
+				E514843324FA50A20092CEE8 /* 截屏2020-08-2916.59.50.png in Resources */,
 				E54FBEE62442DDB4008C7316 /* qrcode_scan_btn_photo_nor@2x.png in Resources */,
 				E54FBEE92442DDB4008C7316 /* qrcode_scan_btn_flash_nor@2x.png in Resources */,
 				E54FBEE82442DDB4008C7316 /* qrcode_scan_btn_photo_down@2x.png in Resources */,
 				48575C3C2428899D00153155 /* LaunchScreen.storyboard in Resources */,
+				E514842624F94E650092CEE8 /* appLauch in Resources */,
 				E54FBEE72442DDB4008C7316 /* qrcode_scan_btn_myqrcode_down@2x.png in Resources */,
 				48575C392428899D00153155 /* Assets.xcassets in Resources */,
 				48575C372428899C00153155 /* Main.storyboard in Resources */,
 				E54FBEE52442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png in Resources */,
+				E514842D24FA111E0092CEE8 /* Resource in Resources */,
 				E5C26ACB2440C5CE0096F55C /* HTML5 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5C26AD724420AEA0096F55C /* LBXScanViewStyle.swift in Sources */,
+				E514842424F93F800092CEE8 /* LaunchView.swift in Sources */,
 				48508F612429991A0049A123 /* BleHelper.swift in Sources */,
 				E5C26ADB24420AEA0096F55C /* LBXScanView.swift in Sources */,
 				E5C26ADA24420AEA0096F55C /* LBXScanWrapper.swift in Sources */,
@@ -390,6 +410,7 @@
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 /* End PBXVariantGroup section */
 
