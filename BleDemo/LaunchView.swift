@@ -48,15 +48,23 @@ class LauchViewController: UIViewController {
     //视频播放完毕响应
     @objc func playerDidFinishPlaying() {
          print("播放完毕!")//调到主页去
-        //修改跟视图器
-         let navigationController = UINavigationController(rootViewController: ViewController())
+//        let navigationController = UINavigationController(rootViewController: ViewController())
+        //清空root
+//        if ((self.window?.rootViewController) != nil){
+//            self.window?.rootViewController = nil;
+//        }
+        
+//         let vc = ViewController()
          //        把根视图控制器设为导航视图控制器
-        self.window?.rootViewController = navigationController
-        let vc = ViewController()
+//        self.window?.rootViewController = ViewController();
         //这种方式才可以扫描页继续往下走 会x影响webpage里的js执行
-        self.navigationController?.pushViewController(vc, animated: true)
+//        self.navigationController?.pushViewController(vc, animated: true)
 //        self.present(vc, animated: true, completion: nil)
 //        self.present(vc, animated: true, completion: nil)
+         //
+        
+        let appDelegate = (UIApplication.shared.delegate) as! AppDelegate;
+        appDelegate.changeRoorViewFuc();
         return
     }
     //第三种方案

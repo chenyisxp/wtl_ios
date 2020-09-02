@@ -21,13 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: ViewController())
         //        把根视图控制器设为导航视图控制器
         self.window?.rootViewController = navigationController
+//                self.window?.rootViewController = LauchViewController()
         
-        //        渲染出页面
-        self.window?.makeKeyAndVisible()
+        //        渲染出页面 创建窗口
+        self.window?.makeKeyAndVisible();
 //        原文链接：https://blog.csdn.net/weixin_41735943/java/article/details/81142709
         return true
     }
-
+    func changeRoorViewFuc(){
+         let navigationController = UINavigationController(rootViewController: ViewController())
+        self.window?.rootViewController = navigationController
+    }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

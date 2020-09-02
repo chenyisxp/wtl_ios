@@ -48,6 +48,8 @@ open class LBXScanViewController: UIViewController {
     
     //闪光灯
     var btnFlash: UIButton = UIButton()
+    //关闭弹层
+    var btnClosePresent: UIButton = UIButton()
     
     //我的二维码
     var btnMyQR: UIButton = UIButton()
@@ -118,7 +120,14 @@ open class LBXScanViewController: UIViewController {
         
         btnFlash.setImage(UIImage(named: "qrcode_scan_btn_flash_nor"), for:UIControl.State.normal)
         btnFlash.addTarget(self, action: #selector(LBXScanViewController.openOrCloseFlash), for: UIControl.Event.touchUpInside)
+        //关闭按钮 begin
+        self.btnClosePresent = UIButton()
+        btnClosePresent.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        btnClosePresent.center = CGPoint(x: bottomItemsView!.frame.width, y: 0)
         
+        btnClosePresent.setImage(UIImage(named: "qrcode_scan_btn_flash_nor"), for:UIControl.State.normal)
+        btnClosePresent.addTarget(self, action: #selector(LBXScanViewController.closeModal), for: UIControl.Event.touchUpInside)
+        //关闭按钮 end
         
         self.btnPhoto = UIButton()
         btnPhoto.bounds = btnFlash.bounds
@@ -137,18 +146,20 @@ open class LBXScanViewController: UIViewController {
         
         //只开放灯光 其他不靠谱 k
         bottomItemsView?.addSubview(btnFlash)
+//        bottomItemsView?.addSubview(btnClosePresent)
 //        bottomItemsView?.addSubview(btnPhoto)
 //        bottomItemsView?.addSubview(btnMyQR)
         
         view.addSubview(bottomItemsView!)
     }
-    
+    //退出当前弹层
+    @objc func closeModal() {
+        self.dismiss(animated: true, completion:nil)//关闭
+    }
     //开关闪光灯
     @objc func openOrCloseFlash() {
         scanObj?.changeTorch()
-        
         isOpenedFlash = !isOpenedFlash
-        
         if isOpenedFlash
         {
             btnFlash.setImage(UIImage(named: "qrcode_scan_btn_flash_down"), for:UIControl.State.normal)
@@ -156,7 +167,7 @@ open class LBXScanViewController: UIViewController {
         else
         {
             btnFlash.setImage(UIImage(named: "qrcode_scan_btn_flash_nor"), for:UIControl.State.normal)
-            
+
         }
     }
     @objc func myCode() {
@@ -237,13 +248,14 @@ open class LBXScanViewController: UIViewController {
     }
     
     @objc open func openPhotoAlbum() {
-        LBXPermissions.authorizePhotoWith { [weak self] _ in
-            let picker = UIImagePickerController()
-            picker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            picker.delegate = self
-            picker.allowsEditing = true
-            self?.present(picker, animated: true, completion: nil)
-        }
+        self.dismiss(animated: true, completion:nil)//关闭
+//        LBXPermissions.authorizePhotoWith { [weak self] _ in
+//            let picker = UIImagePickerController()
+//            picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+//            picker.delegate = self
+//            picker.allowsEditing = true
+//            self?.present(picker, animated: true, completion: nil)
+//        }
     }
 }
 
