@@ -18,10 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("application===================")
         self.window = UIWindow(frame: UIScreen.main.bounds)
         //        把初始视图控制器压入导航视图控制器
-        let navigationController = UINavigationController(rootViewController: ViewController())
+//        let navigationController = UINavigationController(rootViewController: ViewController())
         //        把根视图控制器设为导航视图控制器
-        self.window?.rootViewController = navigationController
-//                self.window?.rootViewController = LauchViewController()
+//        self.window?.rootViewController = navigationController
+                self.window?.rootViewController = LauchViewController()
         
         //        渲染出页面 创建窗口
         self.window?.makeKeyAndVisible();
@@ -53,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 

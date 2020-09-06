@@ -95,6 +95,18 @@
                   var message = {"method":'handleMultiParams',"params1":params1,"params2":params2}
                   window.webkit.messageHandlers.interOp.postMessage(message)
               }
+       var num =1;
+       function  testCirclePost(){
+           if(num<20){
+               var message = {"method":"testCirclePost11","sendDt":'da000011'}
+                              window.webkit.messageHandlers.interOp.postMessage(message)
+                              num++;
+                              testCirclePost()
+           }else{
+               num=1;
+           }
+              
+        }
     </script>
 </head>
 <body>
@@ -127,6 +139,7 @@
                   <li><a href="#" onclick="sendMsgToIos('handSaveRead','bleName')">读取存储的数据</a></li>
                   <li><a href="#" onclick="sendMsgToIos('handSaveReadByFuction','bleNameFuction')">读取的数据根据方法直接返回bleNameFuction</a></li>
                   <li><a href="#" onclick="sendMsgToIos('handOpenWeb','http://www.wtl.com.cn/')">打开网页</a></li>
+                  <li><a href="#" onclick="testCirclePost()">循环请求</a></li>
                 <li id="msgString">我勒个去</li>
                 <li id="bleState">连接状态</li>
                 <li id="broastCameraScanRst">扫描结果</li>

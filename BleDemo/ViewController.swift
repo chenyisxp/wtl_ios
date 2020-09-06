@@ -28,6 +28,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     var pArray:[CBPeripheral] = []
     var pArrayString:String = ""
     override func viewDidLoad() {
+        print("viewDidLoad")
         super.viewDidLoad();
 //        let vc = LauchViewController()
         //这种方式才可以扫描页继续往下走 会x影响webpage里的js执行
@@ -47,7 +48,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        edgesForExtendedLayout = .top//顶部y空白
 //        testWebview();
         //获取数据库实例
-        initWbPage()
+       
        
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -55,11 +56,14 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
         super.viewWillAppear(animated)
         // Hide the navigation bar for current view controller
         self.navigationController?.navigationBar.isHidden = true;//隐藏导航
+        initWbPage()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         print("viewWillDisappear")
         super.viewWillDisappear(animated)
+        //避免内存泄漏需要移除
+        theWebView?.configuration.userContentController.removeScriptMessageHandler(forName: "interOp")
         // Show the navigation bar on other view controllers
        self.navigationController?.navigationBar.isHidden = true;//隐藏导航
     }
@@ -104,6 +108,10 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                 self.view.addSubview(theWebView!)
                 //-----end------
     }
+    func webViewWebContentProcessDidTerminate(webView: WKWebView){
+        print("Reload");
+        self.theWebView!.reload();
+    }
     //响应处理js那边的调用
     func userContentController(_ userContentController:WKUserContentController,
                                didReceive message: WKScriptMessage) {
@@ -131,6 +139,25 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             print("开始扫描")
             bleHelper.startScan();
             
+        }else if(sentData["method"] == "testCirclePost11"){
+//             let itemName = sentData["name"]!
+//             print("testCirclePost"+itemName )
+                let sendDt = sentData["sendDt"]!
+                  print("我想要发送数据:\(sendDt)")
+                  if(bleHelper.bleState == BleState.connected){
+                      let str:String = sendDt
+                      //字符串转Data
+      //                let data = str.data(using: String.Encoding.utf8)
+
+                      
+      //                let data = "dae1100000";
+                      let data1:Data =  Data(hex: str)
+                      bleHelper.writeToPeripheral(data1);
+                      print(data1)
+                  }else{
+                      print("我想要发送数据！！请先连接蓝牙")
+                      return;
+                  }
         }else if(sentData["method"] == "handleStopScan"){
             print("停止扫描")
             bleHelper.stopScan();

@@ -9,6 +9,7 @@ class LauchViewController: UIViewController {
         //没有调用启动不了d啊!!!!!!!
         viewDidAppear(true)
     }
+    
     var path:String?
    var playerViewController = AVPlayerViewController()
    var playerView = AVPlayer()
@@ -28,7 +29,10 @@ class LauchViewController: UIViewController {
         let player = AVPlayer(playerItem: playerItem)
         //设置大小和位置（全屏）
         let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = self.view.bounds
+//        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspect;//无效
+//        playerLayer.frame = self.view.bounds
+        let screenSize: CGRect = UIScreen.main.bounds;
+        playerLayer.frame =  CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height);
         //全屏去除顶部状态栏
         self.navigationController?.navigationBar.isHidden = true;//隐藏导航栏要不然底部会有空白区域
 //        playerLayer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
