@@ -37,6 +37,7 @@
 		E5C26ADC24420AEA0096F55C /* LBXScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C26AD524420AE90096F55C /* LBXScanViewController.swift */; };
 		E5C26ADD24420AEA0096F55C /* LBXScanNetAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C26AD624420AE90096F55C /* LBXScanNetAnimation.swift */; };
 		E5E1948224E8309D001B9DC7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E1948124E8309D001B9DC7 /* libsqlite3.0.tbd */; };
+		E5E20E672509266200D90056 /* qrcode_scan_close.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E20E662509266100D90056 /* qrcode_scan_close.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		E5C26AD624420AE90096F55C /* LBXScanNetAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanNetAnimation.swift; sourceTree = "<group>"; };
 		E5E1948124E8309D001B9DC7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
 		E5E1948324E83242001B9DC7 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		E5E20E662509266100D90056 /* qrcode_scan_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcode_scan_close.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 		48575C302428899C00153155 /* BleDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E5E20E662509266100D90056 /* qrcode_scan_close.png */,
 				E514842524F94E650092CEE8 /* appLauch */,
 				E54FBEDF2442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png */,
 				E54FBEE32442DDB4008C7316 /* qrcode_scan_btn_flash_nor@2x.png */,
@@ -324,6 +327,7 @@
 				E54FBEE52442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png in Resources */,
 				E514842D24FA111E0092CEE8 /* Resource in Resources */,
 				E5C26ACB2440C5CE0096F55C /* HTML5 in Resources */,
+				E5E20E672509266200D90056 /* qrcode_scan_close.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,7 +550,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wtl-1";
 				PRODUCT_NAME = WTL;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -565,7 +569,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.wtl-1";
 				PRODUCT_NAME = WTL;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

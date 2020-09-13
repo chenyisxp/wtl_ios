@@ -29,7 +29,12 @@ class LauchViewController: UIViewController {
         let player = AVPlayer(playerItem: playerItem)
         //设置大小和位置（全屏）
         let playerLayer = AVPlayerLayer(player: player)
-//        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspect;//无效
+//        第1种模式AVLayerVideoGravityResizeAspect是按原视频比例显示，是竖屏的就显示出竖屏的，两边留黑；
+//
+//        第2种AVLayerVideoGravityResizeAspectFill是以原比例拉伸视频，直到两边屏幕都占满，但视频内容有部分就被切割了；
+//
+//        第3种AVLayerVideoGravityResize是拉伸视频内容达到边框占满，但不按原比例拉伸，这里明显可以看出宽度被拉伸了。
+        playerLayer.videoGravity = AVLayerVideoGravity.resize;
 //        playerLayer.frame = self.view.bounds
         let screenSize: CGRect = UIScreen.main.bounds;
         playerLayer.frame =  CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height);

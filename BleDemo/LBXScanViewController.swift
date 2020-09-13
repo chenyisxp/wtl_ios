@@ -5,7 +5,6 @@
 //  Created by lbxia on 15/12/8.
 //  Copyright © 2015年 xialibing. All rights reserved.
 //
-
 import UIKit
 import Foundation
 import AVFoundation
@@ -121,12 +120,12 @@ open class LBXScanViewController: UIViewController {
         btnFlash.setImage(UIImage(named: "qrcode_scan_btn_flash_nor"), for:UIControl.State.normal)
         btnFlash.addTarget(self, action: #selector(LBXScanViewController.openOrCloseFlash), for: UIControl.Event.touchUpInside)
         //关闭按钮 begin
-        self.btnClosePresent = UIButton()
-        btnClosePresent.bounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        btnClosePresent.center = CGPoint(x: bottomItemsView!.frame.width, y: 0)
-        
-        btnClosePresent.setImage(UIImage(named: "qrcode_scan_btn_flash_nor"), for:UIControl.State.normal)
-        btnClosePresent.addTarget(self, action: #selector(LBXScanViewController.closeModal), for: UIControl.Event.touchUpInside)
+//        self.btnClosePresent = UIButton()
+//        btnClosePresent.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        btnClosePresent.center = CGPoint(x: 30, y: bottomItemsView!.frame.height/2);
+//        
+//        btnClosePresent.setImage(UIImage(named: "qrcode_scan_close"), for:UIControl.State.normal)
+//        btnClosePresent.addTarget(self, action: #selector(LBXScanViewController.closeModal), for: UIControl.Event.touchUpInside)
         //关闭按钮 end
         
         self.btnPhoto = UIButton()
@@ -229,6 +228,7 @@ open class LBXScanViewController: UIViewController {
         guard let delegate = scanResultDelegate else {
             fatalError("you must set scanResultDelegate or override this method without super keyword")
         }
+        
         navigationController?.popViewController(animated: true)
         if let result = arrayResult.first {
             delegate.scanFinished(scanResult: result, error: nil)
@@ -236,6 +236,7 @@ open class LBXScanViewController: UIViewController {
             let result = LBXScanResult(str: nil, img: nil, barCodeType: nil, corner: nil)
             delegate.scanFinished(scanResult: result, error: "no scan result")
         }
+//        closeModal();
     }
     
     open override func viewWillDisappear(_ animated: Bool) {

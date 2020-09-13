@@ -27,6 +27,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     var bleHelper = BleHelper.shared
     var pArray:[CBPeripheral] = []
     var pArrayString:String = ""
+   
     override func viewDidLoad() {
         print("viewDidLoad")
         super.viewDidLoad();
@@ -38,34 +39,40 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        self.title = "二维码/条码"
 //        navigationController?.navigationBar.barStyle = .blackTranslucent
 //        navigationController?.navigationBar.tintColor = UIColor.white
-//        
+       
 //        //扫描动画：在github下载项目，复制CodeScan.bundle获取图片
 //        var style = LBXScanViewStyle()
 //        style.anmiationStyle = .NetGrid
 //        style.animationImage = UIImage(named: "qrcode_scan_part_net")//引用bundle中的图片
         //****************
         // Do any additional setup after loading the view.
-//        edgesForExtendedLayout = .top//顶部y空白
+//        edgesForExtendedLayout = .top//顶部y空白 开屏页就有状态栏 代表层级关系
 //        testWebview();
         //获取数据库实例
-       
-       
+//        UIApplication.shared.statusBarStyle = .lightContent//白色状态栏
+//       self.view.backgroundColor = .red//全局背景色
+        initWbPage()
     }
+//    override var preferredStatusBarStyle: UIStatusBarStyle{
+//        return .lightContent
+//       }
+    // 字体设置为白色
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear")
         super.viewWillAppear(animated)
         // Hide the navigation bar for current view controller
         self.navigationController?.navigationBar.isHidden = true;//隐藏导航
-        initWbPage()
+//       initWbPage()
+//        reBindJsInterface();
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         print("viewWillDisappear")
         super.viewWillDisappear(animated)
-        //避免内存泄漏需要移除
-        theWebView?.configuration.userContentController.removeScriptMessageHandler(forName: "interOp")
+        //避免内存泄漏需要移除 扫描回来每次就不行了
+//        theWebView?.configuration.userContentController.removeScriptMessageHandler(forName: "interOp")
         // Show the navigation bar on other view controllers
-       self.navigationController?.navigationBar.isHidden = true;//隐藏导航
+//       self.navigationController?.navigationBar.isHidden = false;//隐藏导航
     }
     func initWbPage(){
                 setData()
@@ -75,7 +82,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                                             inDirectory: "HTML5")
                 let url = URL(fileURLWithPath:path!)
                 let request = URLRequest(url:url)
-                self.navigationController?.navigationBar.isHidden = true;//隐藏导航栏要不然底部会有空白区域
+                self.navigationController?.navigationBar.isHidden = true;//隐藏导航栏要不然底部会有空白区域true隐藏
         //        self.navigationController?.navigationBar.barStyle = UIBarStyle.black;//状态栏颜色
                 // 设置导航栏 背景 为 红色
         //        let barColor = UIColor(red:94/255.0, green:94/255.0, blue:94/255.0, alpha:1)
@@ -101,12 +108,21 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                 theWebView = WKWebView(frame:frame, configuration: theConfiguration)
                 //禁用页面在最顶端时下拉拖动效果
                 theWebView!.scrollView.bounces = false
-              
-                
                 //加载页面
                 theWebView!.load(request)
                 self.view.addSubview(theWebView!)
                 //-----end------
+    }
+    //页面跳转后回来js找不到桥接入口 需要重新绑定 页面不刷新
+    func reBindJsInterface(){
+           //创建供js调用的接口
+                let theConfiguration = WKWebViewConfiguration()
+        //html5里自动播放视屏相关 现在不要了
+                theConfiguration.userContentController.add(self, name: "interOp")
+                let frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.width,
+                                   height:UIScreen.main.bounds.height)
+                
+                theWebView = WKWebView(frame:frame, configuration: theConfiguration)
     }
     func webViewWebContentProcessDidTerminate(webView: WKWebView){
         print("Reload");
@@ -183,8 +199,16 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             
             
         }else if(sentData["method"] == "handleDisConnect"){
-            print("我想要端开连接")
-            bleHelper.disconnect(peripheral: self.pArray[0])
+            let itemName = sentData["keyName"]!
+            print("我想要断开连接")
+             for s in self.pArray{
+                if s.identifier.description == itemName {
+                     print("断开===判断是否相等======")
+                     bleHelper.disconnect(peripheral: s)
+                }
+                print("断开=========")
+            }
+           
         }else if(sentData["method"] == "handleSendData"){
             let sendDt = sentData["sendDt"]!
             print("我想要发送数据:\(sendDt)")
@@ -211,7 +235,16 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToHtmlBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
-        }else if(sentData["method"] == "handleGetBleStateByLayout"){
+        }
+        else if(sentData["method"] == "handleGetBleStateThenToNewIndex"){
+            print("读取连接状态并跳转")
+            if(bleHelper.bleState == BleState.connected){
+                self.theWebView!.evaluateJavaScript("sendToHtmlBleStateThenIndex",
+                               completionHandler: nil)
+            }
+           
+        }
+        else if(sentData["method"] == "handleGetBleStateByLayout"){
 //            print("我想要读取连接状态Layout")
 //            print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToLayloutBleState('\(bleHelper.bleState)')",
@@ -343,6 +376,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     //获取扫描结果
     func scanFinished(scanResult: LBXScanResult, error: String?) {
         print("扫描结果11\(scanResult.strScanned!)")
+//        reBindJsInterface();//重新绑定接口
         //调用页面里发送到html5
         self.theWebView!.evaluateJavaScript("broastCameraScanRst('\(scanResult.strScanned ?? "")')",
         completionHandler: nil)
@@ -390,7 +424,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                     }
                }
             print("遍历数组2\(dataJson)")//没关系，打印出来会带属性Optional
-            self.theWebView!.evaluateJavaScript("handBleListToHtml5('\(dataJson)')",
+            self.theWebView!.evaluateJavaScript("handIosBleListToHtml5('\(dataJson)')",
                 completionHandler: nil)
             
             //self.tableView.reloadData()
@@ -403,7 +437,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
         
         bleHelper.setDataBlock { (data) in
             //需要传出数据
-//            self.theWebView!.evaluateJavaScript("handBleListToHtml5('\(data)')",
+//            self.theWebView!.evaluateJavaScript("handIosBleListToHtml5('\(data)')",
 //                           completionHandler: nil)
 //            DA1000000570 对应16进制：44 41 31 30 30 30 30 30 30 30 35 37 30
 //            ble data:8 bytes
@@ -436,22 +470,22 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
    
 }
 
-extension ViewController:UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        
-        cell.textLabel?.text = pArray[indexPath.row].name ?? ""
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        bleHelper.doConnect(peripheral: pArray[indexPath.row])
-    }
-}
+//extension ViewController:UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return pArray.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+//        
+//        cell.textLabel?.text = pArray[indexPath.row].name ?? ""
+//        return cell
+//    }
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        bleHelper.doConnect(peripheral: pArray[indexPath.row])
+//    }
+//}
 extension Data {
     public init(hex: String) {
         self.init(bytes: Array<UInt8>(hex: hex))

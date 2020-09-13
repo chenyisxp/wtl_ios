@@ -5,7 +5,6 @@
 //  Created by xialibing on 15/12/8.
 //  Copyright © 2015年 xialibing. All rights reserved.
 //
-
 import UIKit
 
 open class LBXScanView: UIView {
@@ -189,7 +188,6 @@ open class LBXScanView: UIView {
 
             // CGContextMoveToPoint(context, XRetangleLeft, YMinRetangle);
             // CGContextAddLineToPoint(context, XRetangleLeft+sizeRetangle.width, YMinRetangle);
-
             context.strokePath()
         }
 
@@ -197,14 +195,12 @@ open class LBXScanView: UIView {
         
         
         // 画矩形框4格外围相框角
-
         // 相框角的宽度和高度
         let wAngle = viewStyle.photoframeAngleW
         let hAngle = viewStyle.photoframeAngleH
 
         // 4个角的 线的宽度
         let linewidthAngle = viewStyle.photoframeLineW // 经验参数：6和4
-
         // 画扫码矩形以及周边半透明黑色坐标参数
         var diffAngle = linewidthAngle / 3
         diffAngle = linewidthAngle / 2 // 框外面4个角，与框有缝隙
