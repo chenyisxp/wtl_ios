@@ -237,9 +237,9 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                 completionHandler: nil)
         }
         else if(sentData["method"] == "handleGetBleStateThenToNewIndex"){
-            print("读取连接状态并跳转")
+            print("读取连接状态并跳转\(bleHelper.bleState)")
             if(bleHelper.bleState == BleState.connected){
-                self.theWebView!.evaluateJavaScript("sendToHtmlBleStateThenIndex",
+                self.theWebView!.evaluateJavaScript("handleGetBleStateThenToNewIndex()",
                                completionHandler: nil)
             }
            

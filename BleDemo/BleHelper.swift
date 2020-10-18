@@ -81,7 +81,8 @@ class BleHelper: NSObject {
     
     ///断开连接
     func disconnect(peripheral: CBPeripheral) {
-        centralManager?.cancelPeripheralConnection(peripheral)
+        centralManager?.cancelPeripheralConnection(peripheral);
+        self.nowperipheral = nil;//清空？？
     }
     
     ///开始扫描
