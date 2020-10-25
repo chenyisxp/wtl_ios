@@ -59,7 +59,7 @@
 
 /* Begin PBXFileReference section */
 		48508F602429991A0049A123 /* BleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleHelper.swift; sourceTree = "<group>"; };
-		48575C2E2428899C00153155 /* WTL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		48575C2E2428899C00153155 /* iWTL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWTL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48575C312428899C00153155 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48575C332428899C00153155 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		48575C362428899C00153155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		48575C2F2428899C00153155 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				48575C2E2428899C00153155 /* WTL.app */,
+				48575C2E2428899C00153155 /* iWTL.app */,
 				48575C422428899D00153155 /* BleDemoTests.xctest */,
 				48575C4D2428899D00153155 /* BleDemoUITests.xctest */,
 			);
@@ -225,7 +225,7 @@
 			);
 			name = BleDemo;
 			productName = BleDemo;
-			productReference = 48575C2E2428899C00153155 /* WTL.app */;
+			productReference = 48575C2E2428899C00153155 /* iWTL.app */;
 			productType = "com.apple.product-type.application";
 		};
 		48575C412428899D00153155 /* BleDemoTests */ = {
@@ -540,7 +540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_TEAM = 3W8N9Y8TSM;
 				INFOPLIST_FILE = BleDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -548,9 +548,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wtl.wtlBlueTooth;
-				PRODUCT_NAME = WTL;
+				PRODUCT_NAME = iWTL;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -561,7 +561,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.1;
 				DEVELOPMENT_TEAM = 3W8N9Y8TSM;
 				INFOPLIST_FILE = BleDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -569,9 +569,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wtl.wtlBlueTooth;
-				PRODUCT_NAME = WTL;
+				PRODUCT_NAME = iWTL;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

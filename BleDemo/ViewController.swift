@@ -183,9 +183,10 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             // 663E99B6-39F0-CD53-CF0C-BEB6CA13B875
             print("我想要连接"+itemName )
             print(self.pArray)
-            
+            var num:Int = 1;
             for s in self.pArray{
                 if s.identifier.description == itemName {
+                     num = 2;
                      print("结束===判断是否相等======")
 //                     bleHelper.doConnect(peripheral: self.pArray[0])
                      bleHelper.doConnect(peripheral: s)
@@ -194,7 +195,11 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                 print(s.name ?? "")
                 print("结束=========")
             }
-            
+            if( num == 1){
+                print("无num=========")
+                self.theWebView!.evaluateJavaScript("sendToHtmlConnectedFail()",
+                completionHandler: nil)
+            }
             //连接 加入没有扫描的话需要自己创建对象
             
             
@@ -237,10 +242,9 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                 completionHandler: nil)
         }
         else if(sentData["method"] == "handleGetBleStateThenToNewIndex"){
-            print("读取连接状态并跳转\(bleHelper.bleState)")
+//            print("读取连接状态并跳转\(bleHelper.bleState)")
             if(bleHelper.bleState == BleState.connected){
-                self.theWebView!.evaluateJavaScript("handleGetBleStateThenToNewIndex()",
-                               completionHandler: nil)
+                self.theWebView!.evaluateJavaScript("handleGetBleStateThenToNewIndex('\(bleHelper.bleState)')",completionHandler: nil)
             }
            
         }
@@ -265,11 +269,13 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                 }
             }
         }else if(sentData["method"] == "handSaveWrite"){
-                print("我想要存储数据")
+               
                 let keyName = sentData["keyName"]!
                 let valueName = sentData["valueName"]!
-                let manager = UserDefaults()
+                print("我想要存储数据\(keyName)||\(valueName)")
+                let  manager = UserDefaults()
                 manager.setValue(valueName, forKey: keyName)  //存储字符串
+                    
 //                let days = ["Mon","Tues","Weds","Thurs","Fri","Sat","Sun"]
 //                manager.set(days, forKey: Keys.Array.rawValue)   //存储数组
 //

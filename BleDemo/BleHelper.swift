@@ -191,13 +191,13 @@ extension BleHelper:CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         guard !aPeArray.contains(peripheral), let deviceName = peripheral.name, deviceName.count > 0 else {
             //没有找到新蓝牙
-            print("扫描到的结果1\(peripheral.name ?? "无1")")
+//            print("扫描到的结果1\(peripheral.name ?? "无1")")
             return
         }
         //有蓝牙
-       print("扫描到的结果2\(peripheral.name ??  "无2")")
+//       print("扫描到的结果2\(peripheral.name ??  "无2")")
         if peripheral.name=="HC-08" {
-             print("扫描到的结果3\(peripheral.name ??  "无2")")
+//             print("扫描到的结果3\(peripheral.name ??  "无2")")
         }
 //        <CBPeripheral: 0x281ac52c0, identifier = 663E99B6-39F0-CD53-CF0C-BEB6CA13B875, name = HC-08, state = disconnected>
         aPeArray.append(peripheral)
