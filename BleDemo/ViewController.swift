@@ -31,6 +31,8 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     override func viewDidLoad() {
         print("viewDidLoad")
         super.viewDidLoad();
+        let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+        print("appVersion\(appVersion)")//appVersion1.3
 //        let vc = LauchViewController()
         //这种方式才可以扫描页继续往下走 会x影响webpage里的js执行
 //        self.navigationController?.pushViewController(vc, animated: true)
@@ -249,12 +251,12 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
            
         }
         else if(sentData["method"] == "handleGetBleStateByLayout"){
-//            print("我想要读取连接状态Layout")
+            print("我想要读取连接状态Layout:\(bleHelper.bleState)")
 //            print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToLayloutBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleGetBleStateByIndex"){
-//            print("我想要读取连接状态Index")
+            print("我想要读取连接状态Index:\(bleHelper.bleState)")
             self.theWebView!.evaluateJavaScript("sendToIndexBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleOpenIosScan"){
