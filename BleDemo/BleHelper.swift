@@ -34,7 +34,7 @@ class BleHelper: NSObject {
     static let shared = BleHelper()
     
     var bleState:BleState = .ready
-    
+    var powerStatus:String = "";
     //传出扫描到的设备
     var backPeripheralsBlock:BlePeripheralsBlock?
     ///传出当前连接成功的设备
@@ -163,6 +163,7 @@ extension BleHelper:CBCentralManagerDelegate {
 //            }
             switch (central.state) {
             case CBManagerState.poweredOn:
+                 powerStatus = "poweredOn";
                  print("powered on")
                 //蓝牙开启状态
                 //扫描外设
@@ -170,14 +171,17 @@ extension BleHelper:CBCentralManagerDelegate {
 //                 startScan();
                 break
             case CBManagerState.poweredOff:
+                powerStatus = "poweredOff";
                 //蓝牙关闭状态
                  print("powered poweredOff")
                 break
             case CBManagerState.unauthorized:
+                powerStatus = "unauthorized";
                 //蓝牙未授权
                  print("powered unauthorized")
                 break
             default:
+                powerStatus = "unknown";
                  print("powered unknown")
                 break
             }

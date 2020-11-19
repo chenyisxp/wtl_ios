@@ -154,8 +154,52 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }else if(sentData["method"] == "handleStartScan"){
-            print("开始扫描")
-            bleHelper.startScan();
+            print("开始扫描"+bleHelper.powerStatus)
+            switch bleHelper.powerStatus {
+            case "poweredOn":
+                bleHelper.startScan();
+                break;
+            case "poweredOff":
+                 print("开始扫描poweredOff")
+                let  alertController =  UIAlertController (title:  "Tips" ,
+                                      message:  "Please go to the system settings and turn on the Bluetooth switch first." , preferredStyle: .alert)
+                      let  cancelAction =  UIAlertAction (title:  "cancel" , style: .cancel, handler:  nil )
+                      let  okAction =  UIAlertAction (title:  "confirm" , style: . default , handler: {
+                          action  in
+                          print ( "点击了确定" )
+                      })
+                      alertController.addAction(cancelAction)
+                      alertController.addAction(okAction)
+                 self.present(alertController, animated: true, completion: nil)
+               break;
+            case "unauthorized":
+              print("开始扫描unauthorized")
+             let  alertController =  UIAlertController (title:  "Tips" ,
+                                   message:  "Please check whether the network and Bluetooth permission of the application is approved." , preferredStyle: .alert)
+//                   let  cancelAction =  UIAlertAction (title:  "cancel" , style: .cancel, handler:  nil )
+                   let  okAction =  UIAlertAction (title:  "confirm" , style: . default , handler: {
+                       action  in
+                       print ( "点击了确定" )
+                   })
+//                   alertController.addAction(cancelAction)
+                   alertController.addAction(okAction)
+              self.present(alertController, animated: true, completion: nil)
+            break;
+            default:
+                print("开始扫描unauthorized")
+               let  alertController =  UIAlertController (title:  "Tips" ,
+                                     message:  "Please check whether the network and Bluetooth permission of the application is approved." , preferredStyle: .alert)
+                     let  cancelAction =  UIAlertAction (title:  "cancel" , style: .cancel, handler:  nil )
+                     let  okAction =  UIAlertAction (title:  "confirm" , style: . default , handler: {
+                         action  in
+                         print ( "点击了确定" )
+                     })
+                     alertController.addAction(cancelAction)
+                     alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+               break;
+            }
+            
             
         }else if(sentData["method"] == "testCirclePost11"){
 //             let itemName = sentData["name"]!
@@ -171,7 +215,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
       //                let data = "dae1100000";
                       let data1:Data =  Data(hex: str)
                       bleHelper.writeToPeripheral(data1);
-                      print(data1)
+//                      print(data1)
                   }else{
                       print("我想要发送数据！！请先连接蓝牙")
                       return;
@@ -242,9 +286,18 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToHtmlBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
-        }
-        else if(sentData["method"] == "handleGetBleStateThenToNewIndex"){
-//            print("读取连接状态并跳转\(bleHelper.bleState)")
+        }else if(sentData["method"] == "handGetIosVersion"){
+                              
+                    let keyName = sentData["keyName"]!
+                    let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+                    //如果name不是nil则显示name参数的值，为nil时显示??后面的empty name
+                    //动态拼接方法 根据方法名去完成
+                    print("handGetIosVersion\(keyName )('\(appVersion )')" )
+                    self.theWebView!.evaluateJavaScript("\(keyName )('\(appVersion )')",
+                            completionHandler: nil)
+              
+        }else if(sentData["method"] == "handleGetBleStateThenToNewIndex"){
+            print("读取连接状态并跳转handleGetBleStateThenToNewIndex\(bleHelper.bleState)")
             if(bleHelper.bleState == BleState.connected){
                 self.theWebView!.evaluateJavaScript("handleGetBleStateThenToNewIndex('\(bleHelper.bleState)')",completionHandler: nil)
             }
@@ -256,7 +309,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             self.theWebView!.evaluateJavaScript("sendToLayloutBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleGetBleStateByIndex"){
-            print("我想要读取连接状态Index:\(bleHelper.bleState)")
+//            print("我想要读取连接状态Index:\(bleHelper.bleState)")
             self.theWebView!.evaluateJavaScript("sendToIndexBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleOpenIosScan"){
