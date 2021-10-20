@@ -117,6 +117,7 @@ class BleHelper: NSObject {
     func writeToPeripheral(_ data: Data) {
         print("writeToPeripheral\(data)")
 //        print(writeCh)
+        if(writeCh == nil){return};
         nowperipheral.writeValue(data , for: writeCh!, type: CBCharacteristicWriteType.withoutResponse)
     }
     

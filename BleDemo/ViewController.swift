@@ -509,9 +509,12 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             //传输出去的是十进制数组如[218 225] dae1
 //            ble data十进制:[218, 225, 0, 0, 0, 0, 2, 0, 60, 0, 61, 0, 180, 0, 200, 0, 2, 9, 46, 119]
 //            [da e1 00 00 00 00 02 00 3c 00 3d 00 b4 00 c8 00 02 09 2e 77]//后面双字节的自己拼
-            
-            self.theWebView!.evaluateJavaScript("iosBleDataLayoutFuc('\([UInt8](data))')",
-                                       completionHandler: nil)
+//            20211010前 非modbus协议版本
+//            self.theWebView!.evaluateJavaScript("iosBleDataLayoutFuc('\([UInt8](data))')",
+//                                       completionHandler: nil)
+//            20211010 modbus协议改造支持
+            self.theWebView!.evaluateJavaScript("iosModbusBleDataLayoutFuc('\([UInt8](data))')",
+            completionHandler: nil)
         }
     }
     func handleStartScan(){
