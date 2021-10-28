@@ -55,11 +55,67 @@
 			remoteGlobalIDString = 48575C2D2428899C00153155;
 			remoteInfo = BleDemo;
 		};
+		E5E1F7B4272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+		E5E1F7B6272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS Tests";
+		};
+		E5E1F7B8272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire macOS";
+		};
+		E5E1F7BA272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
+			remoteInfo = "Alamofire macOS Tests";
+		};
+		E5E1F7BC272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626EF1BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS";
+		};
+		E5E1F7BE272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626F81BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS Tests";
+		};
+		E5E1F7C0272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4202FE01B667AA100C997FB;
+			remoteInfo = "Alamofire watchOS";
+		};
+		E5E1F7C2272AE7E800CE2C10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 31293065263E17D600473CEA;
+			remoteInfo = "Alamofire watchOS Tests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		48508F602429991A0049A123 /* BleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleHelper.swift; sourceTree = "<group>"; };
-		48575C2E2428899C00153155 /* PARWELD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PARWELD.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		48575C2E2428899C00153155 /* iWTL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWTL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48575C312428899C00153155 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48575C332428899C00153155 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		48575C362428899C00153155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -95,6 +151,7 @@
 		E5C26AD624420AE90096F55C /* LBXScanNetAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanNetAnimation.swift; sourceTree = "<group>"; };
 		E5E1948124E8309D001B9DC7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
 		E5E1948324E83242001B9DC7 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		E5E20E662509266100D90056 /* qrcode_scan_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcode_scan_close.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +184,7 @@
 		48575C252428899C00153155 = {
 			isa = PBXGroup;
 			children = (
+				E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */,
 				E51DAB732504DB50009158A8 /* lauchImg_1.png */,
 				E514843024FA45200092CEE8 /* appvideo1.mp4 */,
 				E514842C24FA111D0092CEE8 /* Resource */,
@@ -142,7 +200,7 @@
 		48575C2F2428899C00153155 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				48575C2E2428899C00153155 /* PARWELD.app */,
+				48575C2E2428899C00153155 /* iWTL.app */,
 				48575C422428899D00153155 /* BleDemoTests.xctest */,
 				48575C4D2428899D00153155 /* BleDemoUITests.xctest */,
 			);
@@ -208,6 +266,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E5E1F7AA272AE7E700CE2C10 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5E1F7B5272AE7E800CE2C10 /* Alamofire.framework */,
+				E5E1F7B7272AE7E800CE2C10 /* Alamofire iOS Tests.xctest */,
+				E5E1F7B9272AE7E800CE2C10 /* Alamofire.framework */,
+				E5E1F7BB272AE7E800CE2C10 /* Alamofire macOS Tests.xctest */,
+				E5E1F7BD272AE7E800CE2C10 /* Alamofire.framework */,
+				E5E1F7BF272AE7E800CE2C10 /* Alamofire tvOS Tests.xctest */,
+				E5E1F7C1272AE7E800CE2C10 /* Alamofire.framework */,
+				E5E1F7C3272AE7E800CE2C10 /* Alamofire watchOS Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -224,8 +297,10 @@
 			dependencies = (
 			);
 			name = BleDemo;
+			packageProductDependencies = (
+			);
 			productName = BleDemo;
-			productReference = 48575C2E2428899C00153155 /* PARWELD.app */;
+			productReference = 48575C2E2428899C00153155 /* iWTL.app */;
 			productType = "com.apple.product-type.application";
 		};
 		48575C412428899D00153155 /* BleDemoTests */ = {
@@ -298,6 +373,12 @@
 			mainGroup = 48575C252428899C00153155;
 			productRefGroup = 48575C2F2428899C00153155 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E5E1F7AA272AE7E700CE2C10 /* Products */;
+					ProjectRef = E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				48575C2D2428899C00153155 /* BleDemo */,
@@ -306,6 +387,65 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E5E1F7B5272AE7E800CE2C10 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = E5E1F7B4272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5E1F7B7272AE7E800CE2C10 /* Alamofire iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire iOS Tests.xctest";
+			remoteRef = E5E1F7B6272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5E1F7B9272AE7E800CE2C10 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = E5E1F7B8272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5E1F7BB272AE7E800CE2C10 /* Alamofire macOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire macOS Tests.xctest";
+			remoteRef = E5E1F7BA272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5E1F7BD272AE7E800CE2C10 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = E5E1F7BC272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5E1F7BF272AE7E800CE2C10 /* Alamofire tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire tvOS Tests.xctest";
+			remoteRef = E5E1F7BE272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5E1F7C1272AE7E800CE2C10 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = E5E1F7C0272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E5E1F7C3272AE7E800CE2C10 /* Alamofire watchOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire watchOS Tests.xctest";
+			remoteRef = E5E1F7C2272AE7E800CE2C10 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		48575C2C2428899C00153155 /* Resources */ = {
@@ -539,9 +679,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 2.1;
 				DEVELOPMENT_TEAM = 3W8N9Y8TSM;
 				INFOPLIST_FILE = BleDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -549,9 +689,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wtl.wtlBlueTooth;
-				PRODUCT_NAME = PARWELD;
+				PRODUCT_NAME = iWTL;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -562,8 +702,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 2.1;
 				DEVELOPMENT_TEAM = 3W8N9Y8TSM;
 				INFOPLIST_FILE = BleDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -571,9 +712,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wtl.wtlBlueTooth;
-				PRODUCT_NAME = PARWELD;
+				PRODUCT_NAME = iWTL;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

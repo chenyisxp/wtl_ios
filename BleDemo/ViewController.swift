@@ -9,13 +9,13 @@
 import UIKit
 import CoreBluetooth
 import WebKit
+//import Alamofire
 //使用枚举作为关键字， 避免重复键值
 enum Keys: String {
     case Array = "array"
     case StrName = "name"
     case IntAge = "age"
 }
-
 class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerControllerDelegate, UINavigationControllerDelegate ,LBXScanViewControllerDelegate{
     // 禁止自动旋转
     override var shouldAutorotate : Bool {
@@ -77,6 +77,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //       self.navigationController?.navigationBar.isHidden = false;//隐藏导航
     }
     func initWbPage(){
+        
                 setData()
                 //引入html5
                 //-----begin------
@@ -97,6 +98,8 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //                theConfiguration.allowsAirPlayForMediaPlayback = true;
 //                theConfiguration.mediaPlaybackRequiresUserAction = false;
                 theConfiguration.userContentController.add(self, name: "interOp")
+        
+//                theConfiguration.setURLSchemeHandler(HttpProxyHandler(), forURLScheme: "http")//抛出异常
                
           //viedeo
         //                config.mediaPlaybackRequiresUserAction = NO;//把手动播放设置NO ios(8.0, 9.0)
@@ -113,8 +116,74 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
                 //加载页面
                 theWebView!.load(request)
                 self.view.addSubview(theWebView!)
-                //-----end------
+//                //-----end------
+//                print("-----------发送POST请求-----------")
+//        // 获取图片
+//
+//              // 将图片转化成base64字符串
+//        post(name: "testImage", completion: { (results:String?) in
+//
+//          print("-----------获取POST结果-----------")
+//                print(results ?? "11result")
+//
+//      })
     }
+    var msg : String?
+    func post(name:String,completion: @escaping (String?) -> ()) {
+            
+            // 请求地址
+            let url = "http://api.shwtl.net/front/mainactivity"
+            
+            // 设置请求参数
+            var request = URLRequest(url: URL(string: url)!)
+            request.httpMethod = "POST"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            
+            // 填入json数据 encode过的
+//        ["txCode":"ac010002","reqParams":["uuid":"311032cea429d2dbd8180d8a307963b8w"]]
+//        设置options为JSONSerialization.WritingOptions.prettyPrinted，则打印格式更好阅读
+        let json = ["jsonparams":"%7B%22txCode%22%3A%22ac010002%22%2C%22deviceId%22%3A%22%22%2C%22sessionId%22%3A%22%22%2C%22custId%22%3A%22%22%2C%22currentTenantId%22%3A%22%2FvW0BLN5Zhk4QjB9rPTYE6ccLzk9ATt7PLHbsr7dmmU%3D%22%2C%22timestamp%22%3A%222021102875727%22%2C%22reqParams%22%3A%7B%22actionType%22%3A%22code%22%2C%22uuid%22%3A%22311032cea429d2dbd8180d8a307963b8%22%7D%7D"] as [String : Any]
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+//
+//        let jsonData="{\"jsonparams\":{\"txCode\":\"ac010002\",\"reqParams\":{\"uuid\":\"311032cea429d2dbd8180d8a307963b8\"}}}"
+            // 装入request
+            print("==========\(jsonData!)")
+            request.httpBody = jsonData
+            
+            // 发送请求
+            let task = URLSession.shared.dataTask(with: request) { (data:Data?, response:URLResponse?, error:Error?) in
+                //！来option里的取值
+                print("get the value: \(data!)")
+                print("-----------获取结果-----------")
+                // 处理返回数据
+                if let data = data {
+                        
+                    do {
+                        
+                            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
+                                print("get the value: \(json)")
+                                // 获取msg
+                                if let result = json["respData"] as? String{
+                                
+                                    self.msg = result
+                                    print("GET MSG:",self.msg ?? "返回空")
+                                    
+                                }
+                            }
+                        
+                        }catch {
+                            print(error.localizedDescription)
+                        }
+                        
+                    completion(self.msg)
+                        
+                    }
+                    
+                }
+            
+            task.resume()
+            
+        }
     //页面跳转后回来js找不到桥接入口 需要重新绑定 页面不刷新
     func reBindJsInterface(){
            //创建供js调用的接口
@@ -521,6 +590,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        bleHelper.startScan(serviceUUIDS: []?, options: [String : Any]?)
          bleHelper.startScan()
     }
+  
     //MARK: Lazy Load
     
 //    lazy var tableView: UITableView = {
