@@ -36,6 +36,8 @@
 		E5C26ADB24420AEA0096F55C /* LBXScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C26AD424420AE90096F55C /* LBXScanView.swift */; };
 		E5C26ADC24420AEA0096F55C /* LBXScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C26AD524420AE90096F55C /* LBXScanViewController.swift */; };
 		E5C26ADD24420AEA0096F55C /* LBXScanNetAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C26AD624420AE90096F55C /* LBXScanNetAnimation.swift */; };
+		E5DBAE9B272C24700029EBF2 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DBAE92272C24700029EBF2 /* Reachability.swift */; };
+		E5DBAEA0272D6FD50029EBF2 /* Reach.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DBAE9F272D6FD50029EBF2 /* Reach.swift */; };
 		E5E1948224E8309D001B9DC7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E1948124E8309D001B9DC7 /* libsqlite3.0.tbd */; };
 		E5E20E672509266200D90056 /* qrcode_scan_close.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E20E662509266100D90056 /* qrcode_scan_close.png */; };
 /* End PBXBuildFile section */
@@ -149,6 +151,8 @@
 		E5C26AD424420AE90096F55C /* LBXScanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanView.swift; sourceTree = "<group>"; };
 		E5C26AD524420AE90096F55C /* LBXScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanViewController.swift; sourceTree = "<group>"; };
 		E5C26AD624420AE90096F55C /* LBXScanNetAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBXScanNetAnimation.swift; sourceTree = "<group>"; };
+		E5DBAE92272C24700029EBF2 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		E5DBAE9F272D6FD50029EBF2 /* Reach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reach.swift; sourceTree = "<group>"; };
 		E5E1948124E8309D001B9DC7 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.0.tbd; sourceTree = DEVELOPER_DIR; };
 		E5E1948324E83242001B9DC7 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 		48575C252428899C00153155 = {
 			isa = PBXGroup;
 			children = (
+				E5DBAE9F272D6FD50029EBF2 /* Reach.swift */,
 				E5E1F7A9272AE7E700CE2C10 /* Alamofire.xcodeproj */,
 				E51DAB732504DB50009158A8 /* lauchImg_1.png */,
 				E514843024FA45200092CEE8 /* appvideo1.mp4 */,
@@ -210,6 +215,7 @@
 		48575C302428899C00153155 /* BleDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E5DBAE92272C24700029EBF2 /* Reachability.swift */,
 				E5E20E662509266100D90056 /* qrcode_scan_close.png */,
 				E514842524F94E650092CEE8 /* appLauch */,
 				E54FBEDF2442DDB4008C7316 /* qrcode_scan_btn_flash_down@2x.png */,
@@ -503,7 +509,9 @@
 				E54FBEEB2442F0CA008C7316 /* SaveInfo.swift in Sources */,
 				48575C342428899C00153155 /* ViewController.swift in Sources */,
 				48575C322428899C00153155 /* AppDelegate.swift in Sources */,
+				E5DBAEA0272D6FD50029EBF2 /* Reach.swift in Sources */,
 				E5C26ADC24420AEA0096F55C /* LBXScanViewController.swift in Sources */,
+				E5DBAE9B272C24700029EBF2 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

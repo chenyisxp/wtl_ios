@@ -17,6 +17,7 @@ enum Keys: String {
     case IntAge = "age"
 }
 class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerControllerDelegate, UINavigationControllerDelegate ,LBXScanViewControllerDelegate{
+    var reachability: Reachability?
     // 禁止自动旋转
     override var shouldAutorotate : Bool {
         return false
@@ -27,10 +28,32 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     var bleHelper = BleHelper.shared
     var pArray:[CBPeripheral] = []
     var pArrayString:String = ""
+    
+    
+    @objc func networkStatusChanged(_ notification: Notification) {
+          if let userInfo = notification.userInfo {
+              let status = userInfo["Status"] as! String
+            print("11111")
+//            Offline，Online (WiFi)
+              print(status)
+            print("2222")
+          }
+          
+      }
    
+
     override func viewDidLoad() {
-        print("viewDidLoad")
+        
+       
+//        NetworkStatusListener()
+        
         super.viewDidLoad();
+        
+//        监听网络状态
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
+                Reach().monitorReachabilityChanges()
+        
+        
         let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         print("appVersion\(appVersion)")//appVersion1.3
 //        let vc = LauchViewController()
@@ -77,7 +100,8 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //       self.navigationController?.navigationBar.isHidden = false;//隐藏导航
     }
     func initWbPage(){
-        
+                        
+                
                 setData()
                 //引入html5
                 //-----begin------
