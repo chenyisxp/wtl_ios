@@ -22,6 +22,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     override var shouldAutorotate : Bool {
         return false
     }
+    var netWorkStatus:String?
     var pageFromH5:String?
     var theWebView:WKWebView?
     let cellID = "cellIdentifier"
@@ -29,13 +30,16 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
     var pArray:[CBPeripheral] = []
     var pArrayString:String = ""
     
-    
+//    https://github.com/Isuru-Nanayakkara/Reach/tree/master/Reach-swift5.0
     @objc func networkStatusChanged(_ notification: Notification) {
           if let userInfo = notification.userInfo {
               let status = userInfo["Status"] as! String
             print("11111")
 //            Offline，Online (WiFi)
               print(status)
+            netWorkStatus = status;
+            self.theWebView!.evaluateJavaScript("sendToHtmlNetState('\(netWorkStatus ?? "Offline")')",
+                completionHandler: nil)
             print("2222")
           }
           
@@ -43,12 +47,27 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
    
 
     override func viewDidLoad() {
-        
-       
+//        print(UIDevice.current.name)//设备名称
+//        print(UIDevice.current.model)//设备类型 iPhone ipad
+//        print(UIDevice.current.systemName)
+//        print(UIDevice.current.systemVersion)
+//        let infoDictionary = Bundle.main.infoDictionary ?? [:]
+//        let version = (infoDictionary["CFBundleShortVersionString"] as? String) ?? ""
+//        print(version)
+//        let screenWidth = UIScreen.main.bounds.width
+//        let screenHeight = UIScreen.main.bounds.height
+//        print(screenWidth)
+//        print(screenHeight)
 //        NetworkStatusListener()
-        
+        let screenWidth = UIScreen.main.bounds.width;
+        let screenHeight = UIScreen.main.bounds.height;
+//            print(screenWidth)
+//            print(screenHeight)
+//        iPhone||iPhone||iPhone||iOS||12.5.5||320.0||568.0
+        let deviceInfoStr = "\(UIDevice.current.name)||\(UIDevice.current.name)||\(UIDevice.current.model)||\(UIDevice.current.systemName)||\(UIDevice.current.systemVersion)||\(screenWidth)||\(screenHeight)"
+        print(deviceInfoStr)
         super.viewDidLoad();
-        
+//        https://github.com/Isuru-Nanayakkara/Reach/tree/master/Reach-swift5.0
 //        监听网络状态
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.networkStatusChanged(_:)), name: Notification.Name(rawValue: ReachabilityStatusChangedNotification), object: nil)
                 Reach().monitorReachabilityChanges()
@@ -475,6 +494,27 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //            completionHandler: nil)
             self.theWebView!.evaluateJavaScript("\(keyName )('\((params1,pageFromH5 ?? ""))')",
                                completionHandler: nil)
+        }else if(sentData["method"] == "getNetWorkStatus"){
+            self.theWebView!.evaluateJavaScript("sendToHtmlNetState('\(netWorkStatus ?? "Offline")')",
+                completionHandler: nil)
+            
+        }else if(sentData["method"] == "getDeviceInfo"){
+//            print(UIDevice.current.name)//设备名称
+//            print(UIDevice.current.model)//设备类型 iPhone ipad
+//            print(UIDevice.current.systemName)
+//            print(UIDevice.current.systemVersion)
+//            let infoDictionary = Bundle.main.infoDictionary ?? [:]
+//            let version = (infoDictionary["CFBundleShortVersionString"] as? String) ?? ""
+//            print(version)
+            let screenWidth = UIScreen.main.bounds.width;
+            let screenHeight = UIScreen.main.bounds.height;
+//            print(screenWidth)
+//            print(screenHeight)
+            let deviceInfoStr = "\(UIDevice.current.name)||\(UIDevice.current.name)||\(UIDevice.current.model)||\(UIDevice.current.systemName)||\(UIDevice.current.systemVersion)||\(screenWidth)||\(screenHeight)"
+            
+            self.theWebView!.evaluateJavaScript("sendDeviceInfoToHtml('\(deviceInfoStr )')",
+                completionHandler: nil)
+            
         }
         
         
