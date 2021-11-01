@@ -66,6 +66,9 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
 //        iPhone||iPhone||iPhone||iOS||12.5.5||320.0||568.0
         let deviceInfoStr = "\(UIDevice.current.name)||\(UIDevice.current.name)||\(UIDevice.current.model)||\(UIDevice.current.systemName)||\(UIDevice.current.systemVersion)||\(screenWidth)||\(screenHeight)"
         print(deviceInfoStr)
+        let  manager = UserDefaults()
+        manager.setValue(deviceInfoStr, forKey: "deviceInfoStr")  //存储字符串
+        
         super.viewDidLoad();
 //        https://github.com/Isuru-Nanayakkara/Reach/tree/master/Reach-swift5.0
 //        监听网络状态
