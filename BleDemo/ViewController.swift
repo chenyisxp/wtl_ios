@@ -36,10 +36,11 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
               let status = userInfo["Status"] as! String
             print("11111")
 //            Offline，Online (WiFi)
-              print(status)
+              
             netWorkStatus = status;
-            self.theWebView!.evaluateJavaScript("sendToHtmlNetState('\(netWorkStatus ?? "Offline")')",
-                completionHandler: nil)
+            print(netWorkStatus ?? "999")
+//            self.theWebView!.evaluateJavaScript("sendToHtmlNetState('\(netWorkStatus ?? "Offline")')",
+//                completionHandler: nil)
             print("2222")
           }
           
@@ -397,7 +398,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             print("我想要读取数据")
             
         }else if(sentData["method"] == "handleGetBleState"){
-            print("我想要读取连接状态")
+//            print("我想要读取连接状态")
             print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToHtmlBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
@@ -419,7 +420,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
            
         }
         else if(sentData["method"] == "handleGetBleStateByLayout"){
-            print("我想要读取连接状态Layout:\(bleHelper.bleState)")
+//            print("我想要读取连接状态Layout:\(bleHelper.bleState)")
 //            print(bleHelper.bleState)
             self.theWebView!.evaluateJavaScript("sendToLayloutBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
@@ -498,6 +499,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             self.theWebView!.evaluateJavaScript("\(keyName )('\((params1,pageFromH5 ?? ""))')",
                                completionHandler: nil)
         }else if(sentData["method"] == "getNetWorkStatus"){
+            print(netWorkStatus ?? "netWorkStatusnetWorkStatus")
             self.theWebView!.evaluateJavaScript("sendToHtmlNetState('\(netWorkStatus ?? "Offline")')",
                 completionHandler: nil)
             
