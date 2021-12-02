@@ -97,7 +97,8 @@ class BleHelper: NSObject {
     ///停止扫描
     func stopScan() {
         centralManager?.stopScan()
-        bleState = .ready
+        //为什么要改
+//        bleState = .ready
     }
     
 //    ///发送数据包给设备
@@ -358,7 +359,7 @@ extension BleHelper: CBPeripheralDelegate {
             bleState = .connected
             print("接收到了设备的温度特征的值的变化")
             if let dataBlock = backDataBlock, let data = characteristic.value {
-                print("有没有传上来2：\(data)")
+//                print("有没有传上来2：\(data)")
                 dataBlock(data)
             }
         default:
