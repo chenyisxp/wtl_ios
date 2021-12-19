@@ -425,7 +425,7 @@ class ViewController: UIViewController,WKScriptMessageHandler, UIImagePickerCont
             self.theWebView!.evaluateJavaScript("sendToLayloutBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleGetBleStateByIndex"){
-            print("我想要读取连接状态Index:\(bleHelper.bleState)")
+//            print("我想要读取连接状态Index:\(bleHelper.bleState)")
             self.theWebView!.evaluateJavaScript("sendToIndexBleState('\(bleHelper.bleState)')",
                 completionHandler: nil)
         }else if(sentData["method"] == "handleOpenIosScan"){
